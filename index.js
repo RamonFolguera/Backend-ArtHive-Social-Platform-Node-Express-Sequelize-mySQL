@@ -15,12 +15,11 @@ let corsOptions = {
     preflightContinue: false,
     // allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization",
     optionsSuccessStatus: 204
-  };
+};
 
 app.use(express.json());
 
 app.use(cors(corsOptions))
-
 
 app.use(router);
 
@@ -28,5 +27,5 @@ const PORT = process.env.PORT || 4000;
 
 db.then(() => {
     app.listen(PORT, () => console.log("Server running on port " + PORT));
-  })
+})
     .catch((err) => console.log(err.message)); 
