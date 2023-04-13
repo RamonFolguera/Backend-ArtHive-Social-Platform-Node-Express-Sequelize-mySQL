@@ -5,11 +5,13 @@ const passwordId2 = '789123';
 const passwordId3 = '456789';
 const passwordId4 = '121212';
 const passwordId5 = '999999';
+const passwordId6 = '888888';
 const encryptedPassword1 = bcrypt.hashSync(passwordId1, 10);
 const encryptedPassword2 = bcrypt.hashSync(passwordId2, 10);
 const encryptedPassword3 = bcrypt.hashSync(passwordId3, 10);
 const encryptedPassword4 = bcrypt.hashSync(passwordId4, 10);
 const encryptedPassword5 = bcrypt.hashSync(passwordId5, 10);
+const encryptedPassword6 = bcrypt.hashSync(passwordId6, 10);
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
