@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Artist.init({
     user_id: DataTypes.INTEGER,
+    artwork_id: DataTypes.INTEGER,
     artistic_name: DataTypes.STRING,
     about_me: DataTypes.STRING,
     personal_web: DataTypes.STRING,

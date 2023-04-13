@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       ),
       artwork.belongsTo(
         models.Artist,
+        {
+          foreignKey: 'artwork_id'
+        }
       )
     }
   }

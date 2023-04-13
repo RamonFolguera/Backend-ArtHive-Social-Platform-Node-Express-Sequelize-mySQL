@@ -12,6 +12,9 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER
       },
+      artwork_id: {
+        type: Sequelize.INTEGER
+      },
       artistic_name: {
         type: Sequelize.STRING
       },
