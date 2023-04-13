@@ -3,21 +3,21 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class artwork extends Model {
+  class Artwork extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      artwork.belongsToMany(
+      Artwork.belongsToMany(
         models.User,
         {
           through: 'User_artworks',
           foreignKey: 'artwork_id'
         }
       ),
-      artwork.belongsTo(
+      Artwork.belongsTo(
         models.Artist,
         {
           foreignKey: 'artwork_id'
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       )
     }
   }
-  artwork.init({
+  Artwork.init({
     title: DataTypes.STRING,
     category: DataTypes.STRING,
     description: DataTypes.STRING,
@@ -39,5 +39,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'artwork',
   });
-  return artwork;
+  return Artwork;
 };
