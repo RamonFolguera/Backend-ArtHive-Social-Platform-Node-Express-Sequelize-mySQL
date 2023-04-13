@@ -2,12 +2,19 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('artworks', {
+    await queryInterface.createTable('Artworks', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      artist_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Artists",
+          key:'id'
+        }
       },
       title: {
         type: Sequelize.STRING
@@ -47,6 +54,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('artworks');
+    await queryInterface.dropTable('Artworks');
   }
 };

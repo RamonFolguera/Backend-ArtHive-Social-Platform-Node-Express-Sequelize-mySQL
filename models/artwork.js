@@ -20,12 +20,13 @@ module.exports = (sequelize, DataTypes) => {
       Artwork.belongsTo(
         models.Artist,
         {
-          foreignKey: 'artwork_id'
+          foreignKey: 'artist_id'
         }
       )
     }
   }
   Artwork.init({
+    artist_id: DataTypes.INTEGER,
     title: DataTypes.STRING,
     category: DataTypes.STRING,
     description: DataTypes.STRING,
