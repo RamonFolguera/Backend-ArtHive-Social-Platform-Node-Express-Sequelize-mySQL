@@ -9,7 +9,6 @@ artworkController.getAllArtworks = async (req, res) => {
         const artworks = await Artwork.findAll(
             {
                 include: [
-                    
                         {
                             model: Artist,
                                 
@@ -40,7 +39,6 @@ artworkController.getAllArtworks = async (req, res) => {
             })
         }
 };
-
 
 //As artist
 artworkController.getAllMyArtworks = async (req, res) => {
@@ -90,7 +88,13 @@ artworkController.createArtwork = async (req, res) => {
         const { artist_id, title, category, description, technique, dimensions, date_creation, status, image_url, price } = req.body;
         const role_id = req.roleId;
         
-        if (role_id === 1 || role_id === 2 || role_id === 3 ) {
+        if (role_id !== 1 && role_id !== 2 && role_id !== 3 ) {
+            return res.json(
+                {
+                success: false,
+                message: "You have not permission to do that. Please, register as Artist or ask an admin.",
+                });
+            }
         const newArtwork = await Artwork.create(
             {
                 artist_id : artist_id,
@@ -111,13 +115,7 @@ artworkController.createArtwork = async (req, res) => {
             message: "Artwork succesfully created",
             data: newArtwork
             });
-        } else {
-            return res.json(
-                {
-                success: false,
-                message: "You have not permission to do that. Please, register as Artist or ask an admin.",
-                });
-        }
+        
     } catch (error) {
             return res.status(500).json({
                 success: false,
