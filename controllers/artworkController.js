@@ -81,13 +81,71 @@ artworkController.getAllMyArtworks = async (req, res) => {
     }
 };
 
-artworkController.updateMySelectedArtwork = (req, res) => {return res.send('Artwork updated')};
+artworkController.updateMySelectedArtwork = async (req, res) => {
+    try {
+        const userId = req.userId
+        const artworkId = req.params.id;
+        const { artist_id, title, category, description, technique, dimensions, date_creation, status, image_url, price } = req.body;
+
+        const artist = await Artist.findOne({ where: { user_id: userId } });
+        if (!artist) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to update this artwork",
+            });
+        }
+        
+        const numUpdatedRowArtwork = await Artwork.update(
+            {
+                artist_id : artist_id,
+                title : title,
+                category : category,
+                description : description,
+                technique : technique,
+                dimensions : dimensions,
+                date_creation : date_creation,
+                status : status,
+                image_url : image_url,
+                price : price,
+            }, 
+
+            {
+                where: {
+                    id: artworkId,
+                    artist_id: artist.id,
+                },
+            });
+            
+            if (numUpdatedRowArtwork[0] === 0) {
+                return res.json({
+                  success: false,
+                  message: "The artwork could not be updated",
+                });
+              }
+
+              const updatedArtwork = await Artwork.findByPk(artworkId);
+
+        return res.json(
+            {
+            success: true,
+            message: "Artwork successfully updated",
+            data: updatedArtwork
+            });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong trying to update the artwork details",
+            error: error.message
+        })
+    }
+};
 
 artworkController.createArtwork = async (req, res) => {
     try {
         const { artist_id, title, category, description, technique, dimensions, date_creation, status, image_url, price } = req.body;
         const role_id = req.roleId;
-        
+
         if (role_id !== 1 && role_id !== 2 && role_id !== 3 ) {
             return res.json(
                 {
