@@ -7,12 +7,11 @@ const router = require('express').Router();
 
 //As user
 router.get('/', artworkController.getAllArtworks);
-router.get('/artworks/detail', artworkController.getSelectedArtworkInDetail);
 
 //As artist
-router.get('/artworks/mine', artworkController.getAllMyArtworks);
-router.put('/artworks/update', artworkController.updateMySelectedArtwork);
-router.post('/artworks/new', artworkController.createArtwork);
-router.delete('/artworks/delete', artworkController.deleteArtwork);
+router.get('/mine', artworkController.getAllMyArtworks);
+router.put('/update', artworkController.updateMySelectedArtwork);
+router.post('/new', artworkController.createArtwork);
+router.delete('/delete', artworkController.deleteArtwork);
 
 module.exports = router;

@@ -71,15 +71,15 @@ authController.login = async (req,res) => {
         );
         return res.json({
             success: true,
-            message: "Login succesful",
+            message: "Login successfull. Enjoy!",
             data: token
         })
         } catch (error) {
             return res.status(500).json({
-                            success: false,
-                            message: "Somenthing went wrong with Login",
-                            error: error.message
-                        })
+                success: false,
+                message: "Somenthing went wrong with Login",
+                error: error.message
+            })
     }
 }
 
