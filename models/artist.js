@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       Artist.hasMany(
         models.Artwork,
         {
-          foreignKey: 'artwork_id'
+          foreignKey: 'artist_id',
+          as: 'artworks'
         }
       )
     }
@@ -33,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     social_media_links: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'artist',
+    modelName: 'Artist',
   });
   return Artist;
 };

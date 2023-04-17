@@ -1,18 +1,18 @@
-const { User } = './models';
+const { User } = require('../models');
 const bcrypt = require('bcrypt');
 
-const autController = {};
+const authController = {};
 
-autController.register = async(req, res) => {
+authController.register = async(req, res) => {
     try {
-
+        console.log("entro");
         const { name, last_name, email, password, birth_date, phone } = req.body;
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
         const newUser = await User.create(
             {
                 name: name,
-                last_name:last_name,
+                last_name: last_name,
                 email: email,
                 password: encryptedPassword,
                 birth_date: birth_date,
@@ -33,8 +33,8 @@ autController.register = async(req, res) => {
                 message: "Somenthing went wrong with Register",
                 error: error.message
             })
-    
-
     }
-
 }
+
+
+module.exports = authController;

@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     rating: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'user_artwork',
+    modelName: 'User_artwork',
   });
   return User_artwork;
 };
