@@ -43,7 +43,46 @@ artworkController.getAllArtworks = async (req, res) => {
 
 
 //As artist
-artworkController.getAllMyArtworks = (req, res) => {return res.send('Recieved all your artworks')};
+artworkController.getAllMyArtworks = async (req, res) => {
+    try {
+        const role_id = req.roleId;
+        const user_id = req.userId;
+        
+        if (role_id !== 3) {
+
+            return res.json(
+                {
+                success: false,
+                message: "You need to be logged as an Artist to get your artworks",
+                });
+        } 
+
+        const allMyArtworks = await Artwork.findAll({
+            include: [
+                    {
+                        model: Artist,
+                        where: { user_id: user_id },
+                        attributes: [],
+                    },
+                ],
+            })
+        
+        return res.json(
+            {
+                success: true,
+                message: "Artworks succesfully retrieved",
+                data: allMyArtworks
+            });
+        
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong trying to get your artworks",
+            error: error.message
+        })
+    }
+};
+
 artworkController.updateMySelectedArtwork = (req, res) => {return res.send('Artwork updated')};
 
 artworkController.createArtwork = async (req, res) => {
