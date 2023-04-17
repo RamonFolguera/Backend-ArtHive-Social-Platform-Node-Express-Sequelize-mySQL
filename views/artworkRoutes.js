@@ -6,7 +6,7 @@ const router = require('express').Router();
 //TODO add verfyToken and isSuperAdmin middlewares
 
 //As user
-router.get('/artworks', artworkController.getAllArtworks);
+router.get('/', artworkController.getAllArtworks);
 router.get('/artworks/detail', artworkController.getSelectedArtworkInDetail);
 
 //As artist

@@ -1,9 +1,46 @@
+const { Artwork, Artist, User } = require('../models');
 const artworkController = {};
 
 //As admin TODO
 
 //As user
-artworkController.getAllArtworks = (req, res) => {return res.send('Recieved gallery with all works')};
+artworkController.getAllArtworks = async (req, res) => {
+    try {
+        const artworks = await Artwork.findAll(
+            {
+                include: [
+                    
+                        {
+                            model: Artist,
+                                
+                            include: {
+                                model:User,
+                                attributes: {
+                                    exclude: ["password"]
+                                }
+                            } 
+                        }
+                    
+                ],                   
+            }
+        )
+
+        return res.json(
+            {
+            success: true,
+            message: "All artworks succesfully retrieved",
+            data: artworks
+            });
+
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong trying to get all artworks",
+                error: error.message
+            })
+        }
+};
+
 artworkController.getSelectedArtworkInDetail = (req, res) => {return res.send('Artwork in detail')};
 
 //As artist
