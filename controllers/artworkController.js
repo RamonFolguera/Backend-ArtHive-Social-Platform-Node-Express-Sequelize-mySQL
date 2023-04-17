@@ -118,12 +118,12 @@ artworkController.updateMySelectedArtwork = async (req, res) => {
             
             if (numUpdatedRowArtwork[0] === 0) {
                 return res.json({
-                  success: false,
-                  message: "The artwork could not be updated",
+                    success: false,
+                    message: "The artwork could not be updated",
                 });
-              }
+            }
 
-              const updatedArtwork = await Artwork.findByPk(artworkId);
+            const updatedArtwork = await Artwork.findByPk(artworkId);
 
         return res.json(
             {
@@ -183,7 +183,43 @@ artworkController.createArtwork = async (req, res) => {
     
     }
 };
-artworkController.deleteArtwork = (req, res) => {return res.send('Deleted artwork')};
+
+artworkController.deleteArtwork = async (req, res) => {
+    try {
+        const userId = req.userId
+        const artworkId = req.params.id;
+
+        const artist = await Artist.findOne({ where: { user_id: userId } });
+        if (!artist) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to delete this artwork",
+            });
+        }
+        
+        const deletedArtwork = await Artwork.destroy(
+            {
+                where: {
+                    id: artworkId,
+                    artist_id: artist.id,
+                },
+            });
+
+        return res.json(
+            {
+            success: true,
+            message: "Artwork successfully deleted",
+            data: deletedArtwork
+            });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Somenthing went wrong trying to delete the selected artwork",
+            error: error.message
+        })
+    }
+};
 
 
 

@@ -13,6 +13,6 @@ router.get('/', artworkController.getAllArtworks);
 router.get('/mine', verifyToken, artworkController.getAllMyArtworks);
 router.put('/update/:id', verifyToken, artworkController.updateMySelectedArtwork);
 router.post('/new', verifyToken, artworkController.createArtwork);
-router.delete('/delete', artworkController.deleteArtwork);
+router.delete('/delete/:id', verifyToken, artworkController.deleteArtwork);
 
 module.exports = router;
