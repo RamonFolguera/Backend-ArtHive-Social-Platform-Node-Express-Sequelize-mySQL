@@ -50,11 +50,9 @@ artworkController.createArtwork = async (req, res) => {
     try {
         const { artist_id, title, category, description, technique, dimensions, date_creation, status, image_url, price } = req.body;
         const role_id = req.roleId;
-        const user_id = req.userId;
-        console.log(req.userId);
-        console.log(user_id);
+        
         if (role_id === 1 || role_id === 2 || role_id === 3 ) {
-        const newArtwork = Artwork.create(
+        const newArtwork = await Artwork.create(
             {
                 artist_id : artist_id,
                 title : title,
