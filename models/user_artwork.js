@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   User_artwork.init({
     user_id: DataTypes.INTEGER,
     artwork_id: DataTypes.INTEGER,
-    favorite: DataTypes.STRING,
+    favorite: DataTypes.BOOLEAN,
     comment: DataTypes.STRING,
     rating: DataTypes.INTEGER
   }, {

@@ -24,7 +24,7 @@ module.exports = {
         }
       },
       favorite: {
-        type: Sequelize.STRING
+        type: Sequelize.BOOLEAN
       },
       comment: {
         type: Sequelize.STRING
