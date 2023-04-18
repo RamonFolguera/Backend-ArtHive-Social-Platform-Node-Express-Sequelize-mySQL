@@ -6,11 +6,11 @@ const router = require('express').Router();
 
 
 router.post('/favorite',verifyToken, user_artworkController.addFavorites);
-// router.post('/comment', user_artworkController.createComments);
+router.post('/comment', verifyToken,user_artworkController.addComments);
 // router.post('/rating', user_artworkController.createRating);
 
-// router.put('/favorite', user_artworkController.updateFavorites);
-// router.put('/comment', user_artworkController.updateComments);
+router.put('/favorite/:id',verifyToken, user_artworkController.updateFavoritesById);
+router.put('/comment/:id', verifyToken,user_artworkController.updateCommentsById);
 // router.put('/rating', user_artworkController.updateRating);
 
 // router.delete('/favorite', user_artworkController.deleteFavorites);
