@@ -4,10 +4,12 @@ const { Artwork, User_artwork } = require("../models")
 const user_artworkController = {};
 
 user_artworkController.addFavorites = async (req, res) => {
+
+
     try {
         const userId = req.userId;
         const { artwork_id } = req.body;
-     
+    
         const newFavorite = await User_artwork.create(
             {
                 favorite: true,
