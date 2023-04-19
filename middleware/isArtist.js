@@ -1,10 +1,10 @@
-const { User } = require("../models")
 
 
-const isAdmin = async (req, res, next) => {
+const isArtist = async (req, res, next) => {
+  
     try {
   
-        if(req.roleId === 2) {
+        if(req.roleId === 3) {
                 next();
         } else {
             return res.status(500).json({
@@ -24,4 +24,4 @@ const isAdmin = async (req, res, next) => {
             }
 };
 
-module.exports = isAdmin;
+module.exports = isArtist;

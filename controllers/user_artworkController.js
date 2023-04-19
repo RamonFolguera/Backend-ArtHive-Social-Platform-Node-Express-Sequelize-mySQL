@@ -6,20 +6,11 @@ const user_artworkController = {};
 user_artworkController.addFavorites = async (req, res) => {
     try {
         const userId = req.userId;
-
-        const { favorite, artwork_id } = req.body;
-        const role_id = req.roleId;
-
-        if (role_id !== 1 && role_id !== 2 && role_id !== 4 ) {
-            return res.json(
-                {
-                success: false,
-                message: "You have not permission to do that. Please, register as Art Lover or ask an admin.",
-                });
-            }
+        const { artwork_id } = req.body;
+     
         const newFavorite = await User_artwork.create(
             {
-                favorite: favorite,
+                favorite: true,
                 user_id: userId,
                 artwork_id: artwork_id
             }
@@ -40,20 +31,13 @@ user_artworkController.addFavorites = async (req, res) => {
     }
 }
 
+//same as delete?
 user_artworkController.updateFavoritesById = async (req, res) => {
     try {
         const userId = req.userId;
         const userArtworkId = req.params.id
         const { favorite } = req.body;
-        const role_id = req.roleId;
 
-        if (role_id !== 1 && role_id !== 2 && role_id !== 4 ) {
-            return res.json(
-                {
-                success: false,
-                message: "You have not permission to do that. Please, register as Art Lover or ask an admin.",
-                });
-            }
         const updateFavorite = await User_artwork.update(
             {
                 favorite: favorite,
@@ -84,17 +68,8 @@ user_artworkController.updateFavoritesById = async (req, res) => {
 user_artworkController.addComments = async (req, res) => {
     try {
         const userId = req.userId;
-
         const { comment, artwork_id } = req.body;
-        const role_id = req.roleId;
 
-        if (role_id !== 1 && role_id !== 2 && role_id !== 4 ) {
-            return res.json(
-                {
-                success: false,
-                message: "You have not permission to do that. Please, register as Art Lover or ask an admin.",
-                });
-            }
         const newComment = await User_artwork.create(
             {
                 comment: comment,
@@ -123,15 +98,7 @@ user_artworkController.updateCommentsById = async (req, res) => {
         const userId = req.userId;
         const userArtworkId = req.params.id
         const { comment } = req.body;
-        const role_id = req.roleId;
 
-        if (role_id !== 1 && role_id !== 2 && role_id !== 4 ) {
-            return res.json(
-                {
-                success: false,
-                message: "You have not permission to do that. Please, register as Art Lover or ask an admin.",
-                });
-            }
         const updateComment = await User_artwork.update(
             {
                 comment: comment,
@@ -153,14 +120,135 @@ user_artworkController.updateCommentsById = async (req, res) => {
     } catch (error) {
             return res.status(500).json({
                 success: false,
-                message: "Somenthing went wrong and could not mark artwork as favorite",
+                message: "Somenthing went wrong and could not updated your comment",
                 error: error.message
             })
     }
 }
 
+user_artworkController.deleteCommentsById = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const userArtworkId = req.params.id
 
+        const deleteComment = await User_artwork.update(
+            {
+                comment: null,
+            },
+            {
+            where: {
+                id: userArtworkId,
+                user_id: userId,
+            },
+        }
+        )
+        return res.json(
+            {
+            success: true,
+            message: "Comment successfully deleted",
+            data: deleteComment
+            });
+        
+    } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong and could not delete comment to artwork",
+                error: error.message
+            })
+    }
+}
 
-user_artworkController.deleteFavorites = async (req, res) => {}
+user_artworkController.addRating = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const { rating, artwork_id } = req.body;
+
+        const newRating = await User_artwork.create(
+            {
+                rating: rating,
+                user_id: userId,
+                artwork_id: artwork_id
+            }
+        )
+        return res.json(
+            {
+            success: true,
+            message: "Rating successfully added",
+            data: newRating
+            });
+        
+    } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong and could not add your rating",
+                error: error.message
+            })
+    }
+}
+
+user_artworkController.updateRatingById = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const userArtworkId = req.params.id
+        const { rating } = req.body;
+
+        const updateRating = await User_artwork.update(
+            {
+                rating: rating,
+            },
+            {
+            where: {
+                id: userArtworkId,
+                user_id: userId,
+            },
+        }
+        )
+        return res.json(
+            {
+            success: true,
+            message: "Rating successfully updated",
+            data: updateRating
+            });
+        
+    } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong and could not add rating to artwork",
+                error: error.message
+            })
+    }
+}
+
+user_artworkController.deleteRatingById = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const userArtworkId = req.params.id
+
+        const deleteRating = await User_artwork.update(
+            {
+                rating: null,
+            },
+            {
+            where: {
+                id: userArtworkId,
+                user_id: userId,
+            },
+        }
+        )
+        return res.json(
+            {
+            success: true,
+            message: "Rating successfully deleted",
+            data: deleteRating
+            });
+        
+    } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong and could not delete rating to artwork",
+                error: error.message
+            })
+    }
+}
 
 module.exports = user_artworkController;
