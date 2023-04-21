@@ -9,6 +9,18 @@ const multer = require("multer");
 
 const router = require('./router'); 
 
+let corsOptions = {
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    // methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    preflightContinue: false,
+    // allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization",
+    optionsSuccessStatus: 204
+};
+
+app.use(express.json());
+app.use(cors(corsOptions))
+
 const checkFileType = function (file, cb) {
       //Allowed file extensions
       const fileTypes = /jpeg|jpg|png|gif|svg/;
@@ -25,53 +37,35 @@ const checkFileType = function (file, cb) {
       }
     };
 
-let corsOptions = {
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    // methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    preflightContinue: false,
-    // allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization",
-    optionsSuccessStatus: 204
-};
+
 
 //Setting storage engine
-const storageEngine = multer.diskStorage({
-      destination: "./images",
-      filename: (req, file, cb) => {
-        cb(null, `${Date.now()}--${file.originalname}`);
-      },
-    });
-
-    //initializing multer
-    const upload = multer({
-          storage: storageEngine,
-          limits: { fileSize: 10000000 },
-          fileFilter: (req, file, cb) => {
-            checkFileType(file, cb);
-          },
-        });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, `${Date.now()}_${file.originalname}`)
+    }
+  })
+  
+  const upload = multer({ storage })
 
       
 
-app.use(express.json());
 
-app.post("/single", upload.single("image"), (req, res) => {
-      if (req.file) {
-        res.send("Single file uploaded successfully");
+app.post("/file", upload.single("file"), (req, res) => {
+
+    const file = req.file
+
+      if (file) {
+        res.json(file);
       } else {
         res.status(400).send("Please upload a valid image");
       }
     });
 
-    app.post("/multiple", upload.array("images", 5), (req, res) => {
-          if (req.files) {
-            res.send("Muliple files uploaded successfully");
-          } else {
-            res.status(400).send("Please upload a valid images");
-          }
-        });
 
-app.use(cors(corsOptions))
 
 app.use(router);
 
