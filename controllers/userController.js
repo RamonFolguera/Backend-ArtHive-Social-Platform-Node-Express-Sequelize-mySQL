@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Artist } = require('../models');
 const bcrypt = require('bcrypt');
 
 
@@ -52,6 +52,46 @@ userController.getMyUserProfile = async (req, res) => {
     }
 };
 
+//As artist
+userController.getMyArtistProfile = async (req, res) => {
+
+    const userId = req.userId;
+    try {
+        const user = await User.findOne(
+            { 
+            where: 
+            { 
+                id: userId 
+            },
+            include: [
+                {
+                    model: Artist,
+                    where: { user_id: userId },
+                    attributes: {
+                        exclude: ["user_id","createdAt", "updatedAt"]
+                    },
+                },
+            ],
+
+        });
+
+        return res.json(
+            {
+                success: true,
+                message: "User artist succesfully retrieved",
+                data: user
+            }
+        )
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Something went wrong",
+                error: error.message
+            }
+        );
+    }
+};
 
 userController.updateMyUserProfile = async (req, res) => {
     try {

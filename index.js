@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors')
-const path = require("path");
 const db = require('./db/db.js');
 require('dotenv').config()
 
@@ -8,6 +7,7 @@ const app = express();
 const multer = require("multer");
 
 const router = require('./router'); 
+
 
 let corsOptions = {
     origin: "*",
@@ -21,21 +21,24 @@ let corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions))
 
-const checkFileType = function (file, cb) {
-      //Allowed file extensions
-      const fileTypes = /jpeg|jpg|png|gif|svg/;
+app.use('/static', express.static('uploads'));
+
+
+// const checkFileType = function (file, cb) {
+//       //Allowed file extensions
+//       const fileTypes = /jpeg|jpg|png|gif|svg/;
     
-      //check extension names
-      const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+//       //check extension names
+//       const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
     
-      const mimeType = fileTypes.test(file.mimetype);
+//       const mimeType = fileTypes.test(file.mimetype);
     
-      if (mimeType && extName) {
-        return cb(null, true);
-      } else {
-        cb("Error: You can Only Upload Images!!");
-      }
-    };
+//       if (mimeType && extName) {
+//         return cb(null, true);
+//       } else {
+//         cb("Error: You can Only Upload Images!!");
+//       }
+//     };
 
 
 
@@ -70,6 +73,10 @@ app.post("/file", upload.single("file"), (req, res) => {
 app.use(router);
 
 const PORT = process.env.PORT || 4000;
+
+
+// app.use('/images', express.static('images'));
+// app.use('/uploads', express.static('uploads'));
 
 db.then(() => {
     app.listen(PORT, () => console.log("Server running on port " + PORT));
