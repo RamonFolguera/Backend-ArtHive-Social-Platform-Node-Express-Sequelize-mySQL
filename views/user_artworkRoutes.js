@@ -6,7 +6,11 @@ const isSuperAdmin = require('../middleware/isSuperAdmin');
 
 const router = require('express').Router();
 
+router.get('/', verifyToken, isAdmin, isSuperAdmin, user_artworkController.getAllUserArtwork);
+
 router.use(verifyToken, isAdminSuperAdminOrArtLover);
+
+router.get('/mine', user_artworkController.getMyUserArtwork);
 
 router.post('/favorite', user_artworkController.addFavorites);
 router.post('/comment', user_artworkController.addComments);

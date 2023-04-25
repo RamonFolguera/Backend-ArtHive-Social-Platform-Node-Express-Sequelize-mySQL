@@ -3,6 +3,55 @@ const { Artwork, User_artwork } = require("../models")
 
 const user_artworkController = {};
 
+user_artworkController.getAllUserArtwork = async (req, res) => {
+    try {
+        const userArtworks = await User_artwork.findAll()
+
+        return res.json(
+            {
+            success: true,
+            message: "All user-artworks succesfully retrieved",
+            data: userArtworks
+            });
+
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong trying to get all user-artworks",
+                error: error.message
+            })
+        }
+}
+
+user_artworkController.getMyUserArtwork = async (req, res) => {
+    const userId = req.userId;
+    try {
+
+        const userArtworks = await User_artwork.findAll(
+            {
+                where: {
+                    user_id: userId
+                }
+            }
+        )
+
+        return res.json(
+            {
+            success: true,
+            message: "All my user-artworks succesfully retrieved",
+            data: userArtworks
+            });
+
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong trying to get all my user-artworks",
+                error: error.message
+            })
+        }
+}
+
+
 user_artworkController.addFavorites = async (req, res) => {
 
 
@@ -33,7 +82,6 @@ user_artworkController.addFavorites = async (req, res) => {
     }
 }
 
-//same as delete?
 user_artworkController.updateFavoritesById = async (req, res) => {
     try {
         const userId = req.userId;
