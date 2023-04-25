@@ -9,7 +9,6 @@ const router = require('express').Router();
 
 router.get('/', verifyToken, isAdmin, isSuperAdmin, userController.getAllUsersAsAdmin);
 router.get('/me', verifyToken, userController.getMyUserProfile);
-router.get('/artist/me', verifyToken, isArtist, userController.getMyArtistProfile);
 router.put('/update-me', verifyToken,userController.updateMyUserProfile);
 
 

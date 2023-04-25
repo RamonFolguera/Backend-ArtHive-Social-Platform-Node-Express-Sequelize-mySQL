@@ -30,33 +30,31 @@ userController.getAllUsersAsAdmin = async (req, res) => {
     }
 };
 
-//As user
+//Get My Profile as artist, art lover, or admin depending on role
 userController.getMyUserProfile = async (req, res) => {
-    try {
-        const user = await User.findByPk(req.userId);
-        return res.json(
-            {
-                success: true,
-                message: "User succesfully retrieved",
-                data: user
-            }
-        )
-    } catch (error) {
-        return res.status(500).json(
-            {
-                success: false,
-                message: "Something went wrong",
-                error: error.message
-            }
-        );
-    }
-};
 
-//As artist
-userController.getMyArtistProfile = async (req, res) => {
+    const roleId = req.roleId
+    const userId = req.userId
 
-    const userId = req.userId;
     try {
+
+        if (roleId === 4) {
+            const user = await User.findOne(
+                { 
+                where: 
+                { 
+                    id: userId 
+                },    
+            });
+    
+            return res.json(
+                {
+                    success: true,
+                    message: "User Artist succesfully retrieved",
+                    data: user
+                }
+            )
+    }  else if (roleId === 3) {
         const user = await User.findOne(
             { 
             where: 
@@ -78,10 +76,21 @@ userController.getMyArtistProfile = async (req, res) => {
         return res.json(
             {
                 success: true,
-                message: "User artist succesfully retrieved",
+                message: "User Artist succesfully retrieved",
                 data: user
             }
         )
+}  
+
+    const user = await User.findByPk(req.userId);
+    return res.json(
+        {
+            success: true,
+            message: "User Admin or SuperAdmin succesfully retrieved",
+            data: user
+        }
+    )
+
     } catch (error) {
         return res.status(500).json(
             {
@@ -92,6 +101,7 @@ userController.getMyArtistProfile = async (req, res) => {
         );
     }
 };
+
 
 userController.updateMyUserProfile = async (req, res) => {
     try {
