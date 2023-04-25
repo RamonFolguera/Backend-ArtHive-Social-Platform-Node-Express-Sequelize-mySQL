@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Artist } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -39,7 +39,7 @@ authController.register = async(req, res) => {
 authController.login = async (req,res) => {
     try {
         const { email, password } = req.body;
-
+        
         const user = await User.findOne(
             {
                 where: {
@@ -47,7 +47,16 @@ authController.login = async (req,res) => {
                 }
             },
         );
-
+        
+        const artist = await Artist.findOne(
+            {
+                where: {
+                    user_id : user.id,
+                }
+            }
+        )    
+console.log(artist.id);
+console.log(user.id);
         if(!user) {
             return res.send("The email address or password is incorrect. Please try again.") 
         }    
@@ -63,12 +72,15 @@ authController.login = async (req,res) => {
                 name: user.name,
                 email: user.email,
                 userId: user.id,
-                roleId: user.role_id
+                roleId: user.role_id,
+                artistId: artist.id
             },
             process.env.JWT_SECRET,
             { expiresIn: '2h' }
         );
+        
         return res.json({
+            
             success: true,
             message: "Login successfull. Enjoy!",
             data: token

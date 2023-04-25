@@ -43,28 +43,15 @@ artworkController.getAllArtworks = async (req, res) => {
 //As artist
 artworkController.getAllMyArtworks = async (req, res) => {
     try {
-        const role_id = req.roleId;
-        const user_id = req.userId;
         
-        if (role_id !== 3) {
+        const artistId = req.artistId;
 
-            return res.json(
-                {
-                success: false,
-                message: "You need to be logged as an Artist to get your artworks",
-                });
-        } 
+        const allMyArtworks = await Artwork.findAll(
+            {
+                where: { artist_id: artistId }
+            }
+            )
 
-        const allMyArtworks = await Artwork.findAll({
-            include: [
-                    {
-                        model: Artist,
-                        where: { user_id: user_id },
-                        attributes: [],
-                    },
-                ],
-            })
-        
         return res.json(
             {
                 success: true,
@@ -163,7 +150,7 @@ artworkController.createArtwork = async (req, res) => {
                 dimensions : dimensions,
                 date_creation : date_creation,
                 status : status,
-                image_url : image_url,
+                image_url : image_url.replaceAll(" ", "_"),
                 price : price,
             }
         )

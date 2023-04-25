@@ -1,5 +1,6 @@
 const artworkController = require('../controllers/artworkController');
 const verifyToken = require('../middleware/verifyToken');
+const isArtist = require('../middleware/isArtist');
 
 
 const router = require('express').Router();
@@ -10,9 +11,11 @@ const router = require('express').Router();
 router.get('/', artworkController.getAllArtworks);
 
 //As artist
-router.get('/mine', verifyToken, artworkController.getAllMyArtworks);
-router.put('/update/:id', verifyToken, artworkController.updateMySelectedArtwork);
-router.post('/new', verifyToken, artworkController.createArtwork);
+
+router.use(verifyToken, isArtist);
+router.get('/mine',  artworkController.getAllMyArtworks);
+router.put('/update/:id',  artworkController.updateMySelectedArtwork);
+router.post('/new',  artworkController.createArtwork);
 router.delete('/delete', artworkController.deleteArtwork);
 
 module.exports = router;
