@@ -2,13 +2,16 @@ const artworkController = require('../controllers/artworkController');
 const verifyToken = require('../middleware/verifyToken');
 const isArtist = require('../middleware/isArtist');
 
-
 const router = require('express').Router();
 
 //TODO add verfyToken and isSuperAdmin middlewares
 
-//As user
+//Home
+
 router.get('/', artworkController.getAllArtworks);
+
+//As user
+router.get('/user', verifyToken, artworkController.getAllArtworksAsUser);
 
 //As artist
 

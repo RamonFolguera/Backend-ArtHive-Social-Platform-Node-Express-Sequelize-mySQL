@@ -3,8 +3,10 @@ const artworkController = {};
 
 //As admin TODO
 
-//As user
+//Home
 artworkController.getAllArtworks = async (req, res) => {
+
+    const userId = req.userId;
     try {
         const artworks = await Artwork.findAll(
             {
@@ -18,8 +20,52 @@ artworkController.getAllArtworks = async (req, res) => {
                                     exclude: ["password"]
                                 }
                             } 
-                        }
-                    
+                        },
+                ],                   
+            }
+        )
+
+        return res.json(
+            {
+            success: true,
+            message: "All artworks succesfully retrieved",
+            data: artworks
+            });
+
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong trying to get all artworks",
+                error: error.message
+            })
+        }
+};
+
+//As user
+artworkController.getAllArtworksAsUser = async (req, res) => {
+
+    const userId = req.userId;
+    try {
+        const artworks = await Artwork.findAll(
+            {
+                include: [
+                        {
+                            model: Artist,
+                                
+                            include: {
+                                model:User,
+                                attributes: {
+                                    exclude: ["password"]
+                                }
+                            } 
+                        },
+                       {
+                        model: User,
+                        where: { id: userId },
+                        required: false,
+                        attributes: ['id'],
+                        through: { attributes: ['favorite'] }
+                          }
                 ],                   
             }
         )
