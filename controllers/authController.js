@@ -6,7 +6,7 @@ const authController = {};
 
 authController.register = async(req, res) => {
     try {
-        const { name, last_name, email, password, birth_date, phone } = req.body;
+        const { name, last_name, email, password, phone, city, country } = req.body;
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
         const newUser = await User.create(
@@ -15,9 +15,10 @@ authController.register = async(req, res) => {
                 last_name: last_name,
                 email: email,
                 password: encryptedPassword,
-                birth_date: birth_date,
                 phone: phone,
-                role_id: 4
+                role_id: 4,
+                city: city,
+                country: country
             }
         )
         return res.json(

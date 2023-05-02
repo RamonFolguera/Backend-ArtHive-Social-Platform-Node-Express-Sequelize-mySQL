@@ -1,6 +1,5 @@
 const { Artwork, User_artwork } = require("../models")
 
-
 const user_artworkController = {};
 
 user_artworkController.getAllUserArtwork = async (req, res) => {
@@ -50,7 +49,6 @@ user_artworkController.getMyUserArtwork = async (req, res) => {
             })
         }
 }
-
 
 user_artworkController.addFavorites = async (req, res) => {
 

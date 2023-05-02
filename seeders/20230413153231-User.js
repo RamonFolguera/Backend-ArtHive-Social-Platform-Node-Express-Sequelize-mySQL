@@ -17,12 +17,12 @@ const encryptedPassword6 = bcrypt.hashSync(passwordId6, 10);
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Users', [
-      {id: 1,role_id:1,name: "Ramón", last_name:"Folguera",email:"ramon@ramon.com",password: encryptedPassword1,birth_date:"2023-03-01",phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 2,role_id:2,name: "David", last_name:"Valero",email:"david@david.com",password: encryptedPassword2,birth_date:"2023-03-01",phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 3,role_id:3,name: "Alex", last_name:"Moya",email:"alex@alex.com",password: encryptedPassword3,birth_date:"2023-03-01",phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 4,role_id:4,name: "Alyna", last_name:"Nastas",email:"alyna@alyna.com",password: encryptedPassword4,birth_date:"2023-03-01",phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 5,role_id:3,name: "Jordi", last_name:"Jerico",email:"jordi@jordi.com",password: encryptedPassword5,birth_date:"2023-03-01",phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
-      {id: 6,role_id:4,name: "Laura", last_name:"Sánchez",email:"laura@laura.com",password: encryptedPassword6,birth_date:"2023-03-01",phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 1,role_id:1,name: "Ramón", last_name:"Folguera",email:"ramon@ramon.com",password: encryptedPassword1,phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 2,role_id:2,name: "David", last_name:"Valero",email:"david@david.com",password: encryptedPassword2,phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 3,role_id:3,name: "Alex", last_name:"Moya",email:"alex@alex.com",password: encryptedPassword3,phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 4,role_id:4,name: "Alyna", last_name:"Nastas",email:"alyna@alyna.com",password: encryptedPassword4,phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 5,role_id:3,name: "Jordi", last_name:"Jerico",email:"jordi@jordi.com",password: encryptedPassword5,phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
+      {id: 6,role_id:4,name: "Laura", last_name:"Sánchez",email:"laura@laura.com",password: encryptedPassword6,phone:"666555444",avatar:"url",city:"Valencia", country:"Spain",status:true, createdAt: "2023-03-01 00:00:00", updatedAt: "2023-03-01 00:00:00"},
      
     ],{});
   },
