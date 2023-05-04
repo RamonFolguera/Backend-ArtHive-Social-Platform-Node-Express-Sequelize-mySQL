@@ -10,6 +10,7 @@ const router = require('express').Router();
 router.get('/', verifyToken, isAdmin, isSuperAdmin, userController.getAllUsersAsAdmin);
 router.get('/me', verifyToken, userController.getMyUserProfile);
 router.put('/update-me', verifyToken,userController.updateMyUserProfile);
+router.put('/update-status/:id', verifyToken, isAdmin, isSuperAdmin, userController.updateUserStatusAsAdmin);
 
 
 module.exports = router;

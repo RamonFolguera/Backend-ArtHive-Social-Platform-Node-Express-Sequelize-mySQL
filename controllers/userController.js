@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const userController = {};
 
-//As admin TODO
+//As admin 
 userController.getAllUsersAsAdmin = async (req, res) => {
     try {
         const users = await User.findAll(
@@ -29,6 +29,41 @@ userController.getAllUsersAsAdmin = async (req, res) => {
         })
     }
 };
+
+userController.updateUserStatusAsAdmin = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const { status } = req.body;
+      
+        const updateUser = await User.update(
+            {
+               status: status
+            },
+            {
+                where: {
+                    id: userId
+                }
+            });
+        
+            if (!updateUser) {
+                return res.send('User profile not updated')
+            }
+
+        return res.json(
+            {
+            success: true,
+            message: "User Status succesfully updated",
+            data: updateUser
+            });
+
+    } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong trying to update your the user's status",
+                error: error.message
+            })
+    }
+}
 
 //Get My Profile as artist, art lover, or admin depending on role
 userController.getMyUserProfile = async (req, res) => {
