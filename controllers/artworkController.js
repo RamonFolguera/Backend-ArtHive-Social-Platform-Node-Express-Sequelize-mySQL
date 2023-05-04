@@ -213,24 +213,30 @@ artworkController.createArtwork = async (req, res) => {
                 message: "Somenthing went wrong and could not upload your artwork",
                 error: error.message
             })
-    
     }
 };
 
-artworkController.deleteArtwork =async (req, res) => {
+artworkController.deleteMyArtwork = async (req, res) => {
     try {
     
         const artworkId = req.params.id;
-        const userId=req.userId;
-        const role_id = req.roleId;
+        const userId = req.userId;
+        const roleId = req.roleId;
 
-        if (role_id !== 1 && role_id !== 2 && role_id !== 3 ) {
+        if (roleId !== 1 && roleId !== 2 && roleId !== 3 ) {
+            return res.json(
+                {
+                success: false,
+                message: "You have not permission to do that. Please, register as Artist or ask an admin.",
+                });
+            }
         const deleteArtwork = await Artwork.destroy(
+        
             {
                 where: 
                 { 
                     id: artworkId,
-                    user_id : userId,
+
                 }
             })
         
@@ -242,7 +248,7 @@ artworkController.deleteArtwork =async (req, res) => {
                     }
                 );
             
-                }
+                
         }catch(error){
             return res.status(500).json({
                 success: false,

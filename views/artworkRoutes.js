@@ -19,6 +19,6 @@ router.use(verifyToken, isArtist);
 router.get('/mine',  artworkController.getAllMyArtworks);
 router.put('/update/:id',  artworkController.updateMySelectedArtwork);
 router.post('/new',  artworkController.createArtwork);
-router.delete('/delete', artworkController.deleteArtwork);
+router.delete('/delete/:id', artworkController.deleteMyArtwork);
 
 module.exports = router;
