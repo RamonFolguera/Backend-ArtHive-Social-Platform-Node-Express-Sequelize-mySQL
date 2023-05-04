@@ -216,7 +216,42 @@ artworkController.createArtwork = async (req, res) => {
     
     }
 };
-artworkController.deleteArtwork = (req, res) => {return res.send('Deleted artwork')};
+
+artworkController.deleteArtwork =async (req, res) => {
+    try {
+    
+        const artworkId = req.params.id;
+        const userId=req.userId;
+        const role_id = req.roleId;
+
+        if (role_id !== 1 && role_id !== 2 && role_id !== 3 ) {
+        const deleteArtwork = await Artwork.destroy(
+            {
+                where: 
+                { 
+                    id: artworkId,
+                    user_id : userId,
+                }
+            })
+        
+                return res.json(
+                    {
+                        success: true,
+                        message: "Artwork succesfully deleted",
+                        data: deleteArtwork
+                    }
+                );
+            
+                }
+        }catch(error){
+            return res.status(500).json({
+                success: false,
+                message: "Something went wrong trying to delete your artwork",
+                error: error.message
+            })
+        }
+        
+};
 
 
 

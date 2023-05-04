@@ -107,7 +107,7 @@ userController.updateMyUserProfile = async (req, res) => {
     try {
         
         const userId = req.userId
-        const { name, last_name, email, password, birth_date, phone } = req.body;
+        const { name, last_name, email, password, phone, city, country } = req.body;
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
         const updateUser = await User.update(
@@ -116,8 +116,9 @@ userController.updateMyUserProfile = async (req, res) => {
                 last_name: last_name,
                 email: email,
                 password: encryptedPassword,
-                birth_date: birth_date,
                 phone: phone,
+                city: city,
+                country: country
             },
             {
                 where: {
