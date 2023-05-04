@@ -13,15 +13,19 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: "Users",
-          key:'id'
-        }
+          key:'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       artwork_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "Artworks",
           key:'id'
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       favorite: {
         type: Sequelize.BOOLEAN
