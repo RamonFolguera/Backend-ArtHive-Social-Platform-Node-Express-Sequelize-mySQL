@@ -65,6 +65,51 @@ userController.updateUserStatusAsAdmin = async (req, res) => {
     }
 }
 
+userController.updateUserProfileAsAdmin = async (req, res) => {
+    try {
+        
+        const userId = req.params.id
+        const { name, last_name, email, password, role_id, phone, city, country } = req.body;
+        const encryptedPassword = bcrypt.hashSync(password, 10);
+
+        const updateUser = await User.update(
+            {
+                name: name,
+                last_name: last_name,
+                email: email,
+                password: encryptedPassword,
+                role_id: role_id,
+                phone: phone,
+                city: city,
+                country: country
+            },
+            {
+                where: {
+                    id : userId,
+                },
+            });
+        
+            if (!updateUser) {
+                return res.send('User profile not updated')
+            }
+
+        return res.json(
+            {
+            success: true,
+            message: "User profile succesfully updated",
+            data: updateUser
+            });
+
+    } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: "Somenthing went wrong trying to update your profile",
+                error: error.message
+            })
+    }
+}
+
+
 //Get My Profile as artist, art lover, or admin depending on role
 userController.getMyUserProfile = async (req, res) => {
 
