@@ -16,7 +16,7 @@ authController.register = async(req, res) => {
                 email: email,
                 password: encryptedPassword,
                 phone: phone,
-                role_id: 4,
+                role_id: role_id,
                 city: city,
                 country: country
             }
