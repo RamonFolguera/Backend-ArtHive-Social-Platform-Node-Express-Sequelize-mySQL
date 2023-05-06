@@ -52,10 +52,19 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"name\": \"Peter\",\r\n    \"last_name\": \"Smith\",\r\n    \"email\": \"peter@peter.com\",\r\n    \"password\": \"123456\",\r\n    \"phone\": \"666555444\",\r\n    \"city\": \"Rome\",\r\n    \"country\": \"Italy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/users/me/",
+							"raw": "http://localhost:3000/users/update-me/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -63,7 +72,7 @@
 							"port": "3000",
 							"path": [
 								"users",
-								"me",
+								"update-me",
 								""
 							]
 						}
@@ -73,8 +82,30 @@
 				{
 					"name": "Get All users As Admin/superAdmin",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token_arthive}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -110,6 +141,16 @@
 				{
 					"name": "Get All Artworks Gallery",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token_arthive}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -130,10 +171,20 @@
 				{
 					"name": "Get All Artworks Gallery As User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token_arthive}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/artworks/",
+							"raw": "http://localhost:3000/artworks/user",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -141,7 +192,7 @@
 							"port": "3000",
 							"path": [
 								"artworks",
-								""
+								"user"
 							]
 						}
 					},
@@ -150,10 +201,20 @@
 				{
 					"name": "Get All My Artworks As Artist",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token_arthive}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/artworks/",
+							"raw": "http://localhost:3000/artworks/mine",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -161,7 +222,7 @@
 							"port": "3000",
 							"path": [
 								"artworks",
-								""
+								"mine"
 							]
 						}
 					},
@@ -184,7 +245,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"artist_id\" : \"1\",\r\n    \"title\" : \"Upside down world\",\r\n    \"category\" : \"Futuristic\",\r\n    \"description\" : \"This is a modern aproach of an Futuristic world\",\r\n    \"technique\" : \"Digital painting\",\r\n    \"dimensions\" : \"450x350mm\",\r\n    \"date_creation\" : \"2023-01-23\",\r\n    \"status\" : 1,\r\n    \"image_url\" : \"www.image_url.com\",\r\n    \"price\" : \"50\"\r\n}",
+							"raw": "{\r\n    \"artist_id\" : \"1\",\r\n    \"title\" : \"test painting\",\r\n    \"category\" : \"Handmade\",\r\n    \"description\" : \"Out of imagination\",\r\n    \"technique\" : \"Acrylics\",\r\n    \"dimensions\" : \"450x350mm\",\r\n    \"status\" : 1,\r\n    \"image_url\" : \"www.image_url.com\",\r\n    \"price\" : \"60\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -223,7 +284,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"artist_id\" : \"1\",\r\n    \"title\" : \"Now it is working\",\r\n    \"category\" : \"Futuristic\",\r\n    \"description\" : \"This is a modern aproach of an Futuristic world\",\r\n    \"technique\" : \"Digital painting\",\r\n    \"dimensions\" : \"450x350mm\",\r\n    \"date_creation\" : \"2023-01-23\",\r\n    \"status\" : 1,\r\n    \"image_url\" : \"www.image_url.com\",\r\n    \"price\" : \"50\"\r\n}",
+							"raw": "{\r\n    \"artist_id\" : \"1\",\r\n    \"title\" : \"Now it is working\",\r\n    \"category\" : \"Futuristic\",\r\n    \"description\" : \"This is a modern aproach of an Futuristic world\",\r\n    \"technique\" : \"Digital painting\",\r\n    \"dimensions\" : \"450x350mm\",\r\n    \"status\" : 1,\r\n    \"image_url\" : \"image.jpg\",\r\n    \"price\" : \"50\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -254,7 +315,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWxleCIsImVtYWlsIjoiYWxleEBhbGV4LmNvbSIsInVzZXJJZCI6Mywicm9sZUlkIjozLCJpYXQiOjE2ODE3NTQ1OTcsImV4cCI6MTY4MTc2MTc5N30.2MnWuXLrDw5zPFjEK1bRmWeU5KmNPcp5t7MMKPXl3Tg",
+									"value": "{{user_token_arthive}}",
 									"type": "string"
 								}
 							]
@@ -271,7 +332,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/artworks/delete/9",
+							"raw": "http://localhost:3000/artworks/delete/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -280,7 +341,7 @@
 							"path": [
 								"artworks",
 								"delete",
-								"9"
+								"1"
 							]
 						}
 					},
@@ -363,7 +424,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n    \"email\": \"peter@peter.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": " {\r\n    \"email\": \"ramon@ramon.com\",\r\n    \"password\": \"Ramon_123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -524,7 +585,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"favorite\": false \r\n}",
+							"raw": "{\r\n    \"favorite\": true \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -532,7 +593,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user-artwork/favorite/6",
+							"raw": "http://localhost:3000/user-artwork/favorite/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -541,7 +602,7 @@
 							"path": [
 								"user-artwork",
 								"favorite",
-								"6"
+								"1"
 							]
 						}
 					},
@@ -572,7 +633,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user-artwork/comment/7",
+							"raw": "http://localhost:3000/user-artwork/comment/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -581,7 +642,7 @@
 							"path": [
 								"user-artwork",
 								"comment",
-								"7"
+								"1"
 							]
 						}
 					},
@@ -604,7 +665,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"rating\": 100\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -692,7 +753,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user-artwork/rating/9",
+							"raw": "http://localhost:3000/user-artwork/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -700,8 +761,7 @@
 							"port": "3000",
 							"path": [
 								"user-artwork",
-								"rating",
-								"9"
+								"10"
 							]
 						}
 					},
@@ -750,16 +810,60 @@
 				{
 					"name": "Get all userArtwork",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token_arthive}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user-artwork/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user-artwork",
+								""
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get my userArtwork",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token_arthive}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user-artwork/mine",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user-artwork",
+								"mine"
+							]
+						}
 					},
 					"response": []
 				}

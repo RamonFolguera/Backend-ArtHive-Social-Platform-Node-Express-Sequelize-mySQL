@@ -1,4 +1,4 @@
-# Final Project - Backend - ArtHive - My Art Social Platform
+# Final Project - Backend - ArtHive - My Art Social Platform 🧑‍🎨💻👩
 <details>
   <summary>Summary 📝</summary>
   <ol>
@@ -82,20 +82,16 @@ Used technologies:
 6. ``` $ npx sequelize-cli db:seed:all ``` To execute seeders.
 7. ``` $ npx sequelize-cli db:drop ``` In case you need to drop data base. Create, excute migrations and seeders again following steps from number 4.
 8. ``` $ npm run dev ```  To start the server.
-9. Ready to test the endpoints in Postman. Here you have my Collection in JSON format:
+9. Ready to test the endpoints in Postman. Here you have my Collection in JSON format:<a href="https://github.com/RamonFolguera/rfc-geekshubs-fsd-val-finalproject-backend-070523/blob/dev/Postman_collection_ArtHive.json">
+    <img src= "https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white"/>
+</a>
 
-!['importJSONpostman'](./Postman_collection_ArtHive.json)
 
-<details>
-<summary>Project 6 - Laravel will be exported as a JSON file 📝</summary>
 
-		
 
-</details>
+Copy that JSON and paste it in here to create a new Collection with all my endpoints:
+!['importJSONpostman'](./img/Postman_import.JPG)
 
-Copy that JSON and paste it in here:
-!['importJSONpostman'](./img/importJSONpostman.JPG)
-image.png
 
 ## Endpoints
 <details>
@@ -104,33 +100,33 @@ image.png
 - AUTH
     - USERS REGISTER
 
-            POST http://localhost:8000/api/register/
+            POST http://localhost:3000/auth/register
         body:
         ``` js
             
-          {
-            "name": "James",
-            "last_name": "Webb",
-            "username": "RockyRock",
-            "email": "james@james.com",
-            "password": "999999"
-          }
+           {
+                "name": "Peter",
+                "last_name": "Smith",
+                "email": "peter@peter.com",
+                "password": "123456",
+                "role_id": "role_id",
+                "phone": "666555444",
+                "city": "Valencia",
+                "country":"Spain"
+            }
         ```
 
     - USERS LOGIN
 
-            POST http://localhost:8000/api/login/  
+            POST http://localhost:3000/auth/login 
+        
         body:
         ``` js
-        {
-            "email": "alex@alex.com",
-            "password": "123456"
+         {
+            "email": "ramon@ramon.com",
+            "password": "Ramon_123"
         }
         ```
-
-    - USERS LOGOUT
-
-            POST http://localhost:8000/api/logout/  
 
 - USER
     - USER PROFILE 
@@ -139,12 +135,13 @@ image.png
 
 
         ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFtw7NuIiwiZW1haWwiOiJyYW1vbkByYW1vbi5jb20iLCJ1c2VySWQiOjEsInJvbGVJZCI6MSwiaWF0IjoxNjgzMjgzMTI0LCJleHAiOjE2ODMyOTAzMjR9.YAKRv9TyrdK1rFctOiU-0MK3WTCd5Q4gaX_1Fl0lu-U"
+
         ```
 
         In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
 
-            GET http://localhost:8000/api/my-profile/
+            GET http://localhost:3000/users/me/
 
         
 
@@ -153,182 +150,306 @@ image.png
         Copy the generated TOKEN generado with authenticate from LOGIN:
 
         ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFtw7NuIiwiZW1haWwiOiJyYW1vbkByYW1vbi5jb20iLCJ1c2VySWQiOjEsInJvbGVJZCI6MSwiaWF0IjoxNjgzMjgzMTI0LCJleHAiOjE2ODMyOTAzMjR9.YAKRv9TyrdK1rFctOiU-0MK3WTCd5Q4gaX_1Fl0lu-U"
         ```
 
         In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
 
-            PUT http://localhost:8000/api/my-profile/update
+            PUT http://localhost:3000/users/update-me/
+        body:
+        ``` js
+        {
+            "name": "Peter",
+            "last_name": "Smith",
+            "email": "peter@peter.com",
+            "password": "123456",
+            "phone": "666555444",
+            "city": "Rome",
+            "country": "Italy"
+        }
+        ```
+    - AS SUPERADMIN AND ADMIN ENDPOINTS 
+
+     LOGIN as USER with SUPERADMIN AND ADMIN role:
+
+        LOGIN as USER with ADMIN or SUPERADMIN role:
+
         body:
         ``` js
             {
-            "name": "Alex updated",
-            "last_name": "Moya updated",
-            "username": "updated",
-            "email": "alex@gmailupdated.com",
-            "password": "123456"
+                "email": "ramon@ramon.com",
+                "password": "Ramon_123"
             }
         ```
 
-    - GET ALL REGISTERED USERS AS ADMIN
+        Copy the generated TOKEN generado with authenticate from LOGIN:
 
-        LOGIN as USER with ADMIN role:
 
+        ```
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFtw7NuIiwiZW1haWwiOiJyYW1vbkByYW1vbi5jb20iLCJ1c2VySWQiOjEsInJvbGVJZCI6MSwiaWF0IjoxNjgzMjgzMTI0LCJleHAiOjE2ODMyOTAzMjR9.YAKRv9TyrdK1rFctOiU-0MK3WTCd5Q4gaX_1Fl0lu-U"
+        ```
+
+        In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
+
+    - GET ALL REGISTERED 
+
+            GET  http://localhost:3000/users/
+
+    - UPDATE USER STATUS 
+
+        PUT http://localhost:3000/users/update-status/5
         body:
         ``` js
+        {
+            "status": false
+        }
+        ``` 
+
+    - UPDATE USER STATUS 
+
+         PUT http://localhost:3000/users/update-profile-as-admin/5
+        body:
+        ``` js
+         {
+                "name": "Peter",
+                "last_name": "Smith",
+                "email": "peter@peter.com",
+                "password": "123456",
+                "role_id": "3",
+                "phone": "666555444",
+                "city": "Rome",
+                "country": "Italy"
+            }
+        ```          
+
+- ARTWORK
+
+    - GET ALL ARTWORKS 
+
+            GET http://localhost:3000/artworks/
+
+    - UPLOAD A FILE 
+
+            POST http://localhost:3000/file
+
+    - AS USER ENDPOINTS 
+
+     LOGIN as USER with ANY role:
+
+        body:
+         ``` js
+            {
+                "email": "laura@laura.com",
+                "password": "Laura_123"
+            }
+        ```
+
+            Copy the generated TOKEN generado with authenticate from LOGIN:
+
+
+             ```
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFtw7NuIiwiZW1haWwiOiJyYW1vbkByYW1vbi5jb20iLCJ1c2VySWQiOjEsInJvbGVJZCI6MSwiaWF0IjoxNjgzMjgzMTI0LCJleHAiOjE2ODMyOTAzMjR9.YAKRv9TyrdK1rFctOiU-0MK3WTCd5Q4gaX_1Fl0lu-U"
+            ```
+
+            In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
+
+    - GET ALL ARTWORKS AS USER
+
+            GET http://localhost:3000/artworks/user  
+
+    AS ARTIST ENDPOINTS
+
+        LOGIN as USER with ARTIST role:
+
+        body:
+         ``` js
             {
                 "email": "alex@alex.com",
-                "password": "123456"
+                "password": "Alex_123"
             }
         ```
 
-        Copy the generated TOKEN generado with authenticate from LOGIN:
+            Copy the generated TOKEN generado with authenticate from LOGIN:
 
 
-        ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
-        ```
+             ```
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFtw7NuIiwiZW1haWwiOiJyYW1vbkByYW1vbi5jb20iLCJ1c2VySWQiOjEsInJvbGVJZCI6MSwiaWF0IjoxNjgzMjgzMTI0LCJleHAiOjE2ODMyOTAzMjR9.YAKRv9TyrdK1rFctOiU-0MK3WTCd5Q4gaX_1Fl0lu-U"
+            ```
 
-        In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
+            In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
 
-            GET  http://localhost:8000/api/users/all
+    - CREATE ARTWORK REGISTERS
 
-- PARTY
-    - CREATE PARTIES
-
-            POST http://localhost:8000/api/party/
+            POST http://localhost:3000/artworks/new
         body:
         ``` js
             {
-                "game_id": 4,
-                "name": "NewParty"
-            }
-        ```
-
-    - GET ALL PARTIES PLAYING A SPECIFIC GAME
-
-        Adding id from the selected game by params (/id).
-
-            GET http://localhost:8000/api/partiesByGameId/2
-
-    - JOIN A PARTY
-
-        Copy the generated TOKEN generado with authenticate from LOGIN:
-
-        ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
-        ```
-
-        In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
-
-
-            POST http://localhost:8000/api/party/join
-        body:
-        ``` js
-            {
-                "party_id": 4
-            }
-        ```
-
-    - LEAVE A PARTY
-
-        Copy the generated TOKEN generado with authenticate from LOGIN:
-
-        ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
-        ```
-
-        In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
-
-
-            POST http://localhost:8000/api/party/leave
-        body:
-        ``` js
-            {
-                "party_id": 4
+                "artist_id" : "1",
+                "title" : "test painting",
+                "category" : "Abstract Painting",
+                "description" : "Out of imagination",
+                "technique" : "Acrylics",
+                "dimensions" : "450x350mm",
+                "status" : 1,
+                "image_url" : "image.jpg",
+                "price" : "60"
             }
         ```
     
-- MESSAGES
-    - GET ALL MESSAGES IN A PARTY
+    - GET MY ARTWORK REGISTERS
 
-        Copy the generated TOKEN generado with authenticate from LOGIN:
+            GET http://localhost:3000/artworks/mine
+      
+    - UPDATE MY SELECTED ARTWORK REGISTER
 
-        ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
-        ```
-
-        In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
-
-        Adding id from the selected party by params (/id).
-
-            GET  http://localhost:8000/api/messages/party/1
-
-
-    - CREATE NEW MESSAGES
-
-        Copy the generated TOKEN generado with authenticate from LOGIN:
-
-        ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
-        ```
-
-        In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
-
-
-            POST http://localhost:8000/api/messages/new
+            PUT http://localhost:3000/artworks/update/2
         body:
         ``` js
             {
-                "party_id": 1,
-                 "message": "Whats up guys?"
+                "artist_id" : "1",
+                "title" : "test painting",
+                "category" : "Abstract Painting",
+                "description" : "Out of imagination",
+                "technique" : "Acrylics",
+                "dimensions" : "450x350mm",
+                "status" : 1,
+                "image_url" : "image.jpg",
+                "price" : "60"
             }
-        ```
+        ```     
+    - DELETE MY SELECTED ARTWORK REGISTER
 
-- UPDATE MESSAGES
+            DELETE http://localhost:3000/artworks/delete/1
 
-        Copy the generated TOKEN generado with authenticate from LOGIN:
+- USER_ARTWORK
 
-        ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
-        ```
+    - AS USER ENDPOINTS 
 
-        In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
+     LOGIN as USER with ANY role:
 
-        Adding id from the selected message by params (/id)
-
-            PUT http://localhost:8000/api/messages/1
         body:
-       ``` js
+         ``` js
             {
-                "message": "Whats up guys?"
+                "email": "laura@laura.com",
+                "password": "Laura_123"
             }
-        ```      
-
-- DELETE MESSAGES
-
-        Copy the generated TOKEN generado with authenticate from LOGIN:
-
-        ```
-            "1|GmWPYpZbnEKrKpqHPh6Z2oFxl14oQxMaPKpJexYX"
         ```
 
-        In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
+            Copy the generated TOKEN generado with authenticate from LOGIN:
 
-        Adding id from the selected message by params (/id)
 
-            DELETE http://localhost:8000/api/messages/1
-         
+             ```
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFtw7NuIiwiZW1haWwiOiJyYW1vbkByYW1vbi5jb20iLCJ1c2VySWQiOjEsInJvbGVJZCI6MSwiaWF0IjoxNjgzMjgzMTI0LCJleHAiOjE2ODMyOTAzMjR9.YAKRv9TyrdK1rFctOiU-0MK3WTCd5Q4gaX_1Fl0lu-U"
+            ```
+
+            In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
+
+    - GET ALL USER_ARTWORKS AS USER
+
+            GET http://localhost:3000/user-artwork/
+
+    - AS ARTIST, ADMIN OR SUPERADMIN ENDPOINTS 
+
+     LOGIN as USER with ART LOVER role:
+
+        body:
+         ``` js
+            {
+                "email": "laura@laura.com",
+                "password": "Laura_123"
+            }
+        ```
+    
+            Copy the generated TOKEN generado with authenticate from LOGIN:
+
+
+             ```
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUmFtw7NuIiwiZW1haWwiOiJyYW1vbkByYW1vbi5jb20iLCJ1c2VySWQiOjEsInJvbGVJZCI6MSwiaWF0IjoxNjgzMjgzMTI0LCJleHAiOjE2ODMyOTAzMjR9.YAKRv9TyrdK1rFctOiU-0MK3WTCd5Q4gaX_1Fl0lu-U"
+            ```
+
+            In AUTHORIZATION. Type BEARER TOKEN. Paste the generated TOKEN.
+
+    - GET MY USER_ARTWORKS 
+
+            GET http://localhost:3000/user-artwork/mine
+
+    - ADD FAVORITES 
+
+            POST http://localhost:3000/user-artwork/favorite
+        body:
+        ``` js
+            {
+                "favorite": true,
+                "artwork_id": 8
+            }
+        ```     
+    - UPDATE FAVORITES 
+
+            PUT http://localhost:3000/user-artwork/favorite/1
+        body:
+        ``` js
+            {
+                "favorite": true,
+            }
+        ```  
+    - ADD COMMENTS 
+
+            POST http://localhost:3000/user-artwork/comment
+        body:
+        ``` js
+            {
+                "comment": "I love the contrast between lights and darks",
+                "artwork_id": 3
+            }
+        ``` 
+
+    - UPDATE COMMENTS 
+
+            PUT http://localhost:3000/user-artwork/comment/1
+        body:
+        ``` js
+            {
+                 "comment": "I love the contrast between lights and darks of the environment" 
+            }
+        ```
+
+    - DELETE COMMENT
+
+            DELETE http://localhost:3000/user-artwork/comment/9
+
+    - ADD RATING 
+
+            POST http://localhost:3000/user-artwork/rating
+        body:
+        ``` js
+            {
+                "rating": 50,
+                "artwork_id": 3
+            }
+        ``` 
+
+    - UPDATE RATING 
+
+            PUT http://localhost:3000/user-artwork/rating/9
+        body:
+        ``` js
+            {
+                "rating": 100
+            }
+        ```
+
+    - DELETE RATING
+
+            DELETE http://localhost:3000/user-artwork/10
+
 </details>
 
-
-
-## Licencia
-This project is under the following license [MIT License](https://github.com/RamonFolguera/rfc-geekshubs-fsd-val-project6-16042023/blob/master/LICENSE).
+## License
+This project is under the following license [MIT License](https://github.com/RamonFolguera/rfc-geekshubs-fsd-val-finalproject-backend-070523/blob/master/LICENSE).
 
 ## Webography:
 To finish this project I have used the following documentation:
-- [Laravel documentation](https://laravel.com/docs/9.x)
+- [Sequelize documentation](https://sequelize.org/docs/v6/)
 
 
 ## Development:
@@ -342,20 +463,29 @@ Project made by:
 - **Ramón**
 <a href="https://github.com/RamonFolguera" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a>
 
-##Contacto
-- **Ramón**
+## Thanks:
+
+I want to thank my GeekHub mentors for all the support they have given us everyday:
+
+- **Dani**  
+<a href="https://github.com/Dave86dev" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a> 
+
+- **Jose**  
+<a href="https://github.com/JoseMarin" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a> 
+
+- **David**  
+<a href="https://www.github.com/userGithub/" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=red" target="_blank"></a>
+
+- **Mara**  
+<a href="https://github.com/MaraScampini" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=green" target="_blank"></a> 
+
+## Contact
+
+Feel free to contact me anytime, I will be happy to help you with your project or to get me some feedback from you. 
+
 <a href = "mailto:folguera.ramon@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
 <a href="https://www.linkedin.com/in/ram%C3%B3n-folguera-0ab32776/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
 </p>
-
-## Thanks:
-
-I want to thank my GeekHub mentors for all the support they have given us everyday. For this particular project thanks to:
-
-- **Dani**  
-<a href="https://github.com/datata" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a> 
-
-
 
 
 

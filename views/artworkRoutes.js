@@ -4,8 +4,6 @@ const isArtist = require('../middleware/isArtist');
 
 const router = require('express').Router();
 
-//TODO add verfyToken and isSuperAdmin middlewares
-
 //Home
 
 router.get('/', artworkController.getAllArtworks);
