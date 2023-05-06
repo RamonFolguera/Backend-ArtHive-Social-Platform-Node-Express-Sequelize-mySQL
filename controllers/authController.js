@@ -6,7 +6,7 @@ const authController = {};
 
 authController.register = async(req, res) => {
     try {
-        const { name, last_name, email, password, phone, city, country } = req.body;
+        const { name, last_name, email, password, role_id, phone, city, country, status } = req.body;
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
         const newUser = await User.create(
@@ -18,7 +18,8 @@ authController.register = async(req, res) => {
                 phone: phone,
                 role_id: role_id,
                 city: city,
-                country: country
+                country: country,
+                status: true
             }
         )
         return res.json(
@@ -70,7 +71,8 @@ authController.login = async (req,res) => {
                     email: user.email,
                     userId: user.id,
                     roleId: user.role_id,
-                    artistId: artist.id
+                    artistId: artist.id,
+                    status: user.status
                 },
                 process.env.JWT_SECRET,
                 { expiresIn: '2h' }
@@ -101,6 +103,8 @@ authController.login = async (req,res) => {
                 email: user.email,
                 userId: user.id,
                 roleId: user.role_id,
+                status: user.status
+
             },
             process.env.JWT_SECRET,
             { expiresIn: '2h' }
