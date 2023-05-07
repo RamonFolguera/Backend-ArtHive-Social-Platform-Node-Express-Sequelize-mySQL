@@ -21,8 +21,10 @@ artworkController.getAllArtworks = async (req, res) => {
                                 }
                             } 
                         },
+                    
                 ],                   
-            }
+            },
+            
         )
 
         return res.json(
