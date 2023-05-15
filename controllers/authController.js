@@ -6,9 +6,11 @@ const authController = {};
 
 authController.register = async(req, res) => {
     try {
-        const { name, last_name, email, password, role_id, phone, city, country, status } = req.body;
+        const { name, last_name, email, password, role_id, phone, city, country } = req.body;
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
+
+   
         const newUser = await User.create(
             {
                 name: name,
@@ -22,6 +24,23 @@ authController.register = async(req, res) => {
                 status: true
             }
         )
+
+        if (role_id === 3) {
+            const newArtist = await Artist.create(
+                {
+                    user_id : newUser.id,
+                }
+            )
+            return res.json(
+                {
+                success: true,
+                message: "Register was succesful",
+                data: {
+                    user: newUser,
+                    artist: newArtist,
+                }
+                });
+        }
         return res.json(
             {
             success: true,

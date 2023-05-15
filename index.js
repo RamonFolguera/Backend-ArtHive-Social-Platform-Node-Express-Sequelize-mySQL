@@ -23,25 +23,6 @@ app.use(cors(corsOptions))
 
 app.use('/static', express.static('uploads'));
 
-
-// const checkFileType = function (file, cb) {
-//       //Allowed file extensions
-//       const fileTypes = /jpeg|jpg|png|gif|svg/;
-    
-//       //check extension names
-//       const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
-    
-//       const mimeType = fileTypes.test(file.mimetype);
-    
-//       if (mimeType && extName) {
-//         return cb(null, true);
-//       } else {
-//         cb("Error: You can Only Upload Images!!");
-//       }
-//     };
-
-
-
 //Setting storage engine
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -53,8 +34,6 @@ const storage = multer.diskStorage({
   })
   
   const upload = multer({ storage })
-
-      
 
 
 app.post("/file", upload.single("file"), (req, res) => {
@@ -68,15 +47,10 @@ app.post("/file", upload.single("file"), (req, res) => {
       }
     });
 
-
-
 app.use(router);
 
 const PORT = process.env.PORT || 4000;
 
-
-// app.use('/images', express.static('images'));
-// app.use('/uploads', express.static('uploads'));
 
 db.then(() => {
     app.listen(PORT, () => console.log("Server running on port " + PORT));
