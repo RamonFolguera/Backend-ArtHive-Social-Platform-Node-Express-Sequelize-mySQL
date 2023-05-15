@@ -9,6 +9,7 @@ authController.register = async(req, res) => {
         const { name, last_name, email, password, role_id, phone, city, country } = req.body;
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
+        console.log("creating newuser");
 
    
         const newUser = await User.create(
@@ -25,11 +26,24 @@ authController.register = async(req, res) => {
             }
         )
 
-        let newArtist = null;
-        if (role_id === 3) {
-            newArtist = await Artist.create(
+    
+      console.log(req.body.role_id,'role id del body');
+        if (req.body.role_id === "3") {
+      console.log("entro en artist");
+
+            const newArtist = await Artist.create(
                 {
                     user_id : newUser.id,
+                }
+            );
+            return res.json(
+                {
+                    success: true,
+                    message: "Register was successful",
+                    data: {
+                        user: newUser,
+                        artist: newArtist,
+                    }
                 }
             );
         }
@@ -40,7 +54,6 @@ authController.register = async(req, res) => {
                 message: "Register was successful",
                 data: {
                     user: newUser,
-                    artist: newArtist,
                 }
             }
         );

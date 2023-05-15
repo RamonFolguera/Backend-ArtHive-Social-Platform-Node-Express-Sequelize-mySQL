@@ -1,24 +1,25 @@
 {
-    "development": {
-    "username": "",
-      "password": "",
-      "database": "",
-      "host": "",
-      "port": "",
-      "dialect": ""
-    },
-    "test": {
-      "username": "root",
-      "password": "root",
-      "database": "arthive_test",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
-    },
-    "production": {
-      "username": "root",
-      "password": "root",
-      "database": "arthive_prod",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
-    }
+"development": {
+  "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "port": "",
+    "dialect": ""
+  },
+  "test": {
+    "username": "root",
+    "password": "root",
+    "database": "clinica_dental_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "root",
+    "database": "clinica_dental_prod",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
+}
+
