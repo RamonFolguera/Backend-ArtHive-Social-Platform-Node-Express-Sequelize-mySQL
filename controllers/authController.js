@@ -25,28 +25,25 @@ authController.register = async(req, res) => {
             }
         )
 
+        let newArtist = null;
         if (role_id === 3) {
-            const newArtist = await Artist.create(
+            newArtist = await Artist.create(
                 {
                     user_id : newUser.id,
                 }
-            )
-            return res.json(
-                {
+            );
+        }
+
+        return res.json(
+            {
                 success: true,
-                message: "Register was succesful",
+                message: "Register was successful",
                 data: {
                     user: newUser,
                     artist: newArtist,
                 }
-                });
-        }
-        return res.json(
-            {
-            success: true,
-            message: "Register was succesful",
-            data: newUser
-            });
+            }
+        );
 
     } catch (error) {
             return res.status(500).json({
